@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="xterm.js是什么?xterm 是大多数 web-terminal 的解决方案，如vscode、atom等等。支持 bash，vim 和 tmux。并且还支持webgl渲染。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用xterm.js制作web-terminal">
+<meta property="og:url" content="http://yoursite.com/2022/02/10/xterm.js%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="Samonnite">
+<meta property="og:description" content="xterm.js是什么?xterm 是大多数 web-terminal 的解决方案，如vscode、atom等等。支持 bash，vim 和 tmux。并且还支持webgl渲染。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-02-09T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-11-03T04:12:09.748Z">
+<meta property="article:author" content="Samonnite">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2022/02/10/xterm.js%E4%BD%BF%E7%94%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>使用xterm.js制作web-terminal | Samonnite</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Samonnite</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/02/10/xterm.js%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Samonnite">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Samonnite">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          使用xterm.js制作web-terminal
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-02-10 00:00:00" itemprop="dateCreated datePublished" datetime="2022-02-10T00:00:00+08:00">2022-02-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/xterm/" itemprop="url" rel="index"><span itemprop="name">xterm</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="xterm-js是什么"><a href="#xterm-js是什么" class="headerlink" title="xterm.js是什么?"></a>xterm.js是什么?</h3><p>xterm 是大多数 web-terminal 的解决方案，如vscode、atom等等。支持 bash，vim 和 tmux。并且还支持webgl渲染。</p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 1、安装 xterm</span><br><span class="line">npm install --save xterm</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 2、安装xterm-addon-fit</span><br><span class="line">&#x2F;&#x2F; xterm.js的插件，使终端的尺寸适合包含元素。</span><br><span class="line">npm install --save xterm-addon-fit</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 3、支持打开链接</span><br><span class="line">npm install --save xterm-addon-web-links</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Terminal &#125; from &#39;xterm&#39;;</span><br><span class="line">import &#123; FitAddon &#125; from &#39;xterm-addon-fit&#39;</span><br><span class="line">import &#123; WebLinksAddon &#125; from &#39;xterm-addon-web-links&#39;;</span><br><span class="line">import &#39;xterm&#x2F;css&#x2F;xterm.css&#39;</span><br><span class="line"></span><br><span class="line">const initTerminal &#x3D; (terminal) &#x3D;&gt; &#123;</span><br><span class="line">    const fitAddon &#x3D; new FitAddon()</span><br><span class="line"></span><br><span class="line">    terminal.open(document.getElementById(&#39;terminal-container&#39;))</span><br><span class="line">    terminal.loadAddon(fitAddon)    &#x2F;&#x2F; terminal 的尺寸与父元素匹配</span><br><span class="line">    fitAddon.fit()</span><br><span class="line">    terminal.focus()</span><br><span class="line"></span><br><span class="line">    terminal.prompt &#x3D; () &#x3D;&gt; &#123;</span><br><span class="line">        terminal.write(&#39;Samonnite $&#39;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    terminal.writeln(&#39;\x1b[1;1;32mwellcom to web terminal!\x1b[0m&#39;)</span><br><span class="line">    terminal.prompt()</span><br><span class="line"></span><br><span class="line">    setTerminal(terminal)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="主要方法：监听、写入"><a href="#主要方法：监听、写入" class="headerlink" title="主要方法：监听、写入"></a>主要方法：监听、写入</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">terminal!.onData((data: string) &#x3D;&gt; &#123;</span><br><span class="line">    &#x2F;&#x2F; xxxx</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>纯前端实现也可以使用terminal!.onKey方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">terminal!.write(&#39;Hello World&#39;);</span><br></pre></td></tr></table></figure>
+
+<p><code>前端只有在完成这两项工作后才能使用，否则只是个黑板。。。</code></p>
+<h3 id="通过onKey监听键盘实现纯前端Terminal"><a href="#通过onKey监听键盘实现纯前端Terminal" class="headerlink" title="通过onKey监听键盘实现纯前端Terminal"></a>通过onKey监听键盘实现纯前端Terminal</h3><ol>
+<li>正常键盘输入后写入</li>
+<li>ctrl、command、shift、alt等特殊按键，实现删除、复制粘贴</li>
+<li>上下左右键切换实现光标位置变化及命令回溯</li>
+<li>回车提交换行</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">const TERMINAL_INPUT_KEY &#x3D; &#123;</span><br><span class="line">    BACK: 8, &#x2F;&#x2F; 退格删除键</span><br><span class="line">    ENTER: 13, &#x2F;&#x2F; 回车键</span><br><span class="line">    UP: 38, &#x2F;&#x2F; 方向盘上键</span><br><span class="line">    DOWN: 40, &#x2F;&#x2F; 方向盘键</span><br><span class="line">    LEFT: 37, &#x2F;&#x2F; 方向盘左键</span><br><span class="line">    RIGHT: 39, &#x2F;&#x2F; 方向盘右键</span><br><span class="line">    CHAR_C: 67 &#x2F;&#x2F; 字符C</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line">terminal.onKey(e &#x3D;&gt; &#123;</span><br><span class="line">    const &#123; key &#125; &#x3D; e</span><br><span class="line">    const &#123; keyCode, altKey, altGraphKey, ctrlKey, metaKey &#125; &#x3D; e.domEvent</span><br><span class="line"></span><br><span class="line">    const printAble &#x3D; !(altKey || altGraphKey || ctrlKey || metaKey) &#x2F;&#x2F; 禁止相关按键</span><br><span class="line">    const totalOffsetLength &#x3D; inputText.length + prefix.length   &#x2F;&#x2F; 总偏移量</span><br><span class="line">    let currentOffsetLength &#x3D; terminal._core.buffer.x     &#x2F;&#x2F; 当前x偏移量</span><br><span class="line">    console.log(&#39;currentOffsetLength &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; &#39;, currentOffsetLength)</span><br><span class="line"></span><br><span class="line">    switch(keyCode) &#123;</span><br><span class="line">    case TERMINAL_INPUT_KEY.ENTER:</span><br><span class="line">        handleInputText()</span><br><span class="line">        inputText &#x3D; &#39;&#39;</span><br><span class="line">        break</span><br><span class="line"></span><br><span class="line">    case TERMINAL_INPUT_KEY.BACK:</span><br><span class="line">        if (currentOffsetLength &gt; prefix.length) &#123;</span><br><span class="line">            const cursorOffSetLength &#x3D; getCursorOffsetLength(totalOffsetLength - currentOffsetLength, &#39;\x1b[D&#39;) &#x2F;&#x2F; 保留原来光标位置</span><br><span class="line">            terminal._core.buffer.x &#x3D; currentOffsetLength - 1</span><br><span class="line">            terminal.write(&#39;\x1b[?K&#39; + inputText.slice(currentOffsetLength-prefix.length))</span><br><span class="line">            terminal.write(cursorOffSetLength)</span><br><span class="line">            inputText &#x3D; &#96;$&#123;inputText.slice(0, currentOffsetLength - prefix.length - 1)&#125;$&#123;inputText.slice(currentOffsetLength - prefix.length)&#125;&#96;</span><br><span class="line">        &#125;</span><br><span class="line">        break</span><br><span class="line"></span><br><span class="line">    case TERMINAL_INPUT_KEY.UP: &#123;</span><br><span class="line">        if (!inputTextList[currentIndex - 1]) break</span><br><span class="line"></span><br><span class="line">        const offsetLength &#x3D; getCursorOffsetLength(inputText.length, &#39;\x1b[D&#39;)</span><br><span class="line"></span><br><span class="line">        inputText &#x3D; inputTextList[currentIndex - 1]</span><br><span class="line">        terminal.write(offsetLength + &#39;\x1b[?K&#39; )</span><br><span class="line">        terminal.write(inputTextList[currentIndex - 1])</span><br><span class="line">        terminal._core.buffer.x &#x3D; totalOffsetLength</span><br><span class="line">        currentIndex--</span><br><span class="line">        break</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    case TERMINAL_INPUT_KEY.DOWN: &#123;</span><br><span class="line">        if (!inputTextList[currentIndex + 1]) break</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 构造退格(模拟替换效果) \b \b标识退一格; \b\b  \b\b表示退两格...</span><br><span class="line">        const backLength &#x3D; getCursorOffsetLength(inputTextList[currentIndex].length, &#39;\b&#39;)</span><br><span class="line">        const blackLength &#x3D; getCursorOffsetLength(inputTextList[currentIndex].length, &#39; &#39;)</span><br><span class="line">        inputText &#x3D; inputTextList[currentIndex + 1]</span><br><span class="line">        terminal.write(backLength + blackLength + backLength)</span><br><span class="line">        terminal.write(inputTextList[currentIndex + 1])</span><br><span class="line">        terminal._core.buffer.x &#x3D; totalOffsetLength</span><br><span class="line">        currentIndex++</span><br><span class="line">        break</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    case TERMINAL_INPUT_KEY.LEFT:</span><br><span class="line">        if (currentOffsetLength &gt; prefix.length) &#123;</span><br><span class="line">            terminal.write(key)</span><br><span class="line">        &#125;</span><br><span class="line">        break</span><br><span class="line"></span><br><span class="line">    case TERMINAL_INPUT_KEY.RIGHT:</span><br><span class="line">        if (currentOffsetLength &lt; totalOffsetLength) &#123;</span><br><span class="line">            terminal.write(key)</span><br><span class="line">        &#125;</span><br><span class="line">        break</span><br><span class="line"></span><br><span class="line">    default:</span><br><span class="line">        if(keyCode &#x3D;&#x3D;&#x3D; TERMINAL_INPUT_KEY.CHAR_C &amp;&amp; ctrlKey) &#123;</span><br><span class="line">            handleCtrlC()</span><br><span class="line">            break</span><br><span class="line">        &#125;</span><br><span class="line">        if (!printAble) break</span><br><span class="line">        if (totalOffsetLength &gt;&#x3D; terminal.cols)  break</span><br><span class="line">        if (currentOffsetLength &gt;&#x3D; totalOffsetLength) &#123;</span><br><span class="line">            terminal.write(key)</span><br><span class="line">            inputText +&#x3D; key</span><br><span class="line">            break</span><br><span class="line">        &#125;</span><br><span class="line">        const cursorOffSetLength &#x3D; getCursorOffsetLength(totalOffsetLength - currentOffsetLength, &#39;\x1b[D&#39;)</span><br><span class="line">        terminal.write( &#39;\x1b[?K&#39; + &#96;$&#123;key&#125;$&#123;inputText.slice(currentOffsetLength - prefix.length)&#125;&#96;) &#x2F;&#x2F; 在当前的坐标写上 key 和坐标后面的字符</span><br><span class="line">        terminal.write(cursorOffSetLength)  &#x2F;&#x2F; 移动停留在当前位置的光标</span><br><span class="line">        inputText &#x3D; inputText.slice(0, currentOffsetLength) + key + inputText.slice(totalOffsetLength - currentOffsetLength)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>实际生产项目中纯前端实现各种命令开发成本非常高，需利用websocket与后端通信，完成输入输出。<br>此时前端只负责输入、显示，所有的命令交互都交给后端来做。<br>如node-pty、gotty等等。</p>
+<h3 id="踩过的坑"><a href="#踩过的坑" class="headerlink" title="踩过的坑"></a>踩过的坑</h3><ul>
+<li>屏幕onResize时需根据父元素宽高匹配行列数，xterm-addon-fit无法满足需求，总是会出现无法自适应屏幕问题，文字被遮挡。<br>解决方案：<br>获取父元素宽高，文字宽高，并配置rows、cols，即行数及列数。<br><a target="_blank" rel="noopener" href="https://github.com/Microsoft/vscode/blob/d14ee7613fcead91c5c3c2bddbf288c0462be876/src/vs/workbench/parts/terminal/electron-browser/terminalInstance.ts#L363">vscode解决方案</a></li>
+<li>vim模式下粘贴内容丢失<br>解决方案：<br>对文本进行分片，以此进行输入。</li>
+</ul>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/xtermjs/xterm.js/blob/3.12.0/typings/xterm.d.ts#L16">类型接口</a></li>
+<li><a target="_blank" rel="noopener" href="https://xtermjs.org/docs/api/terminal/interfaces/itheme/">主题配置</a></li>
+<li><a target="_blank" rel="noopener" href="https://xtermjs.org/docs/api/terminal/interfaces/iselectionposition/">光标选择</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/08/05/web3.js%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/" rel="prev" title="web3.js的基本使用">
+      <i class="fa fa-chevron-left"></i> web3.js的基本使用
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#xterm-js%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">1.</span> <span class="nav-text">xterm.js是什么?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">3.</span> <span class="nav-text">初始化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%96%B9%E6%B3%95%EF%BC%9A%E7%9B%91%E5%90%AC%E3%80%81%E5%86%99%E5%85%A5"><span class="nav-number">3.1.</span> <span class="nav-text">主要方法：监听、写入</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E8%BF%87onKey%E7%9B%91%E5%90%AC%E9%94%AE%E7%9B%98%E5%AE%9E%E7%8E%B0%E7%BA%AF%E5%89%8D%E7%AB%AFTerminal"><span class="nav-number">4.</span> <span class="nav-text">通过onKey监听键盘实现纯前端Terminal</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B8%A9%E8%BF%87%E7%9A%84%E5%9D%91"><span class="nav-number">5.</span> <span class="nav-text">踩过的坑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96"><span class="nav-number">6.</span> <span class="nav-text">其他</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Samonnite</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class=""></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Samonnite</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
